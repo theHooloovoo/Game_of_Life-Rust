@@ -1,0 +1,6 @@
+[package]
+
+name = "game_of_life"
+version = "0.0.1"
+authors = [ "theHooloovoo <theHooloovoo@protonmail.com>" ]
+
