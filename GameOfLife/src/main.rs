@@ -7,25 +7,18 @@
 //          parallelize set_buffer()
 //          implement faster iteration techniques (i.e. only check non-empty sections)
 
+mod grid_mod;
+use grid_mod::Grid;
+
 // Size of Matrix
 const X_SIZE: usize = 100;
 const Y_SIZE: usize = 100;
 const MATRIX_BOOL: bool = true;
 
-const STEP_LIMIT: usize = 200;
+const STEP_LIMIT: usize = 1000;
 
 // const useMat1: bool = true;
 
-// Define a struct to contain the whole grid object
-struct Matrix {
-    x: usize,
-    y: usize,
-
-    is_1: bool,
-
-    mat_1: Vec<Vec<bool>>,
-    mat_2: Vec<Vec<bool>>,
-}
 
 // Used to print the contents of the current matrix
 fn print_grid(grid: &Vec<Vec<bool>>) {
@@ -84,6 +77,8 @@ fn set_buffer(matrix: &Vec<Vec<bool>>, buffer: &mut Vec<Vec<bool>>) {
 
 fn main() {
     // Access a matrix such as mat[y][x]
+	let gridA = grid_mod::Grid::new_blank_grid(10, 10);
+	
 
     let mut matrix1 = vec![vec![false; X_SIZE+1]; Y_SIZE+1];
     let mut matrix2 = vec![vec![false; X_SIZE+1]; Y_SIZE+1];
