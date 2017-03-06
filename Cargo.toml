@@ -1,6 +1,8 @@
 [package]
 
-name = "game_of_life"
+name = "conway_rs"
 version = "0.0.1"
 authors = [ "theHooloovoo <theHooloovoo@protonmail.com>" ]
 
+[dependencies]
+getopts = "0.2.14"

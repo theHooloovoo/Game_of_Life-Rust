@@ -1,102 +1,59 @@
 // Written by theHooloovoo
 #![allow(dead_code)]
 #![allow(non_snake_case)]
+#![allow(unused_mut)]
 
-// TODO:    convert global variables into structs
-//          take command line args
-//          make print_grid take args to control printing
-//          add function to insert sets of cells (glider, loaf, pentomino, etc)
-//          parallelize set_buffer()
-//          implement faster iteration techniques (i.e. only check non-empty sections)
+// TODO:    [x] convert global variables into structs
+//          [-] take command line args
+//          [ ] make print_grid take args to control printing
+//          [x] add function to insert sets of cells (glider, loaf, pentomino, etc)
+//          [ ] parallelize set_buffer()
+//          [ ] implement faster iteration techniques (i.e. only check non-empty sections)
+
+//          [x] Add functionality to generate a Grid from a text file
+//          [ ] Add functionality to generate a text file from a Grid
+
+// Command line options
+extern crate getopts;
+use getopts::Options;
+use std::env;
 
 mod grid;
 mod reader;
 
 // =====================================
 fn main() {
+    //let file_name = "".to_string();
+    let mut save_bool = false;
+    let mut iterate_n = 0;
+
+    // Manage command line options
+    let args: Vec<String> = env::args().collect();
+    let program = args[0].clone();
+
+    let mut opts = Options::new();
+    // GENERATE OPTIONS HERE
+    opts.optopt("f", "file", "Select file to load", "Requires a valid filepath");
+    opts.optopt("s", "save", "Save to selected file", "Requires a valid filepath");
+    opts.optflag("q", "quiet", "Do not print output to stdout");
+    opts.optopt("i", "iterate", "Iterate the grid 'n' amount of times", "'n' must be a positive integer");
+
+    let matches = match opts.parse(&args[1..]) {
+        Ok(m) => { m }
+        Err(f) => { panic!(f.to_string()) }
+    };
+
+    // Configure program from command args
+    if matches.opt_present("f") {
+        let input_file = matches.opt_str("f").unwrap();
+    }
+    if matches.opt_present("s") {
+        //let output_file = matches.opt_str("s").unwrap();
+    }
+
     // Access a matrix such as mat[y][x]
-
-    let grid_data = reader::open_file("/home/eric/Programs/Rust/Game_of_Life-Rust/GameOfLife/resource/testFile_01");
-
-    // let test_string = vec![vec!['1', '0', '1', '1']; 4];
-    let test_string = vec![vec!['1','1','1'], vec!['1','0','0'], vec!['0','1','0']];
-
-	let mut gridA = grid::Grid::new_blank_grid(10, 10);
-    gridA.iterate();
-	
-    gridA.stamp(&test_string, 2, 2);
-
-    gridA.print_grid();
-
-    let mut matrix1 = vec![vec![false; 100+1]; 100+1];
-    //let mut matrix2 = vec![vec![false; X_SIZE]; Y_SIZE];
-
-    /*
-    // Glider
-    matrix1[50][50] = true;
-    matrix1[50][49] = true;
-    matrix1[50][48] = true;
-    matrix1[51][50] = true;
-    matrix1[52][49] = true;
-    */
-
-    // Lightweight Spaceship
-    matrix1[51][48] = true;
-    matrix1[51][49] = true;
-    matrix1[51][50] = true;
-    matrix1[51][51] = true;
-    matrix1[50][51] = true;
-    matrix1[49][51] = true;
-    matrix1[48][50] = true;
-    matrix1[50][47] = true;
-    matrix1[48][47] = true;
-
-
-    /*
-    // Pentomino-O
-    matrix1[5][5] = true;
-    matrix1[5][6] = true;
-    matrix1[5][7] = true;
-    matrix1[5][8] = true;
-    matrix1[5][9] = true;
-    // It works!
-    */
-
-    /*
-    // Pentomino-R
-    matrix1[50][50] = true;
-    matrix1[51][50] = true;
-    matrix1[51][51] = true;
-    matrix1[49][50] = true;
-    matrix1[50][49] = true;
-    */
-
-    /*
-    // Hexomino-Century
-    matrix1[50][50] = true;
-    matrix1[50][49] = true;
-    matrix1[49][50] = true;
-    matrix1[50][51] = true;
-    matrix1[51][51] = true;
-    matrix1[51][52] = true;
-    */
-
-    /*
-    // Heptomino-Pi
-    matrix1[50][49] = true;
-    matrix1[50][50] = true;
-    matrix1[50][51] = true;
-    matrix1[51][49] = true;
-    matrix1[51][51] = true;
-    matrix1[52][49] = true;
-    matrix1[52][51] = true;
-    */
-
-    // Random seed
-    matrix1[50][57] = true;
-    matrix1[50][58] = true;
-    matrix1[49][57] = true;
-    matrix1[49][58] = true;
+    // let mut main_grid = grid::Grid::load_from_file(&file_name);
+    // main_grid.print_grid();
 
 }
 
