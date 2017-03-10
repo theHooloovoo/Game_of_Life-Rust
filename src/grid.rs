@@ -21,23 +21,21 @@ impl Grid {
              pospos1: vec![vec!['0'; x+2]; y+2],
              pospos2: vec![vec!['0'; x+2]; y+2],
              state: false,
-             step: 1,
+             step: 0,
         }
     }
-    pub fn load_from_file(file: Vec<Vec<char>>) -> Grid {
+    pub fn load_from_file_data(file: Vec<Vec<char>>) -> Grid {
         // Create a blank grid
-        let mut g = Grid{width: file.len(),
-             height: file[0].len(),
-             pospos1: vec![vec!['0'; file.len()+2]; file[0].len()+2],
-             pospos2: vec![vec!['0'; file.len()+2]; file[0].len()+2],
-             state: false,
-             step: 1,
-        };
+        let mut g = Grid::new_blank_grid(file.len(), file[0].len());
 
         // Stamp file data onto blank Grid
         g.stamp(&file, 0, 0);
 
-        g
+        g  // Return this
+    }
+
+    pub fn new_empty_grid() -> Grid {
+        Grid::new_blank_grid(0, 0)
     }
 
     pub fn print_grid(&self) {
@@ -61,6 +59,19 @@ impl Grid {
 
     }
 
+    pub fn grow_left(&mut self, n: usize) {
+        //
+    }
+    pub fn grow_right(&mut self, n: usize) {
+        //
+    }
+    pub fn grow_upwards(&mut self, n: usize) {
+        //
+    }
+    pub fn grow_downwards(&mut self, n: usize) {
+        //
+    }
+    
     pub fn stamp(&mut self, data: &Vec<Vec<char>>, x_off: usize, y_off: usize) {
         // Grab the Front Buffer
         let mut mat = &mut self.pospos1;
